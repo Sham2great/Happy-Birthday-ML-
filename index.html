@@ -188,9 +188,39 @@ body:before{background-blend-mode:screen,normal}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 @media(max-width:760px){.polaroid{animation-duration:7s,.95s}.polaroid:after{display:none}}
 
+
+/* Full-screen cinematic reveal */
+#cinema-intro{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 48%,#12377f 0%,#071943 48%,#02071b 100%);overflow:hidden;pointer-events:auto;animation:cinemaCurtain 1.4s 3.55s cubic-bezier(.76,0,.24,1) forwards}
+#cinema-intro:before{content:"";position:absolute;inset:-30%;background:conic-gradient(from 0deg,transparent,#f2d58a18,transparent 25%,#6c9cff16,transparent 55%);animation:cinemaOrbit 8s linear infinite}
+#cinema-intro:after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 20%,#0009 100%);pointer-events:none}
+.cinema-content{position:relative;z-index:2;text-align:center;padding:25px;width:min(90vw,650px);animation:cinemaContent 3.5s ease both}
+.cinema-kicker{font-size:.58rem;letter-spacing:.48em;text-transform:uppercase;color:#e9d39a;opacity:0;animation:cinemaText 1s .35s forwards}
+.cinema-rule{height:1px;width:0;margin:25px auto;background:linear-gradient(90deg,transparent,#f2d58a,transparent);animation:cinemaRule 1.25s .65s ease forwards}
+.cinema-title{font:400 clamp(4.4rem,15vw,8.5rem)/.85 'Cormorant Garamond',serif;letter-spacing:-.045em;color:#fff8ed;margin:0;opacity:0;transform:scale(.94);text-shadow:0 0 35px #8eb7ff55;animation:cinemaTitle 1.25s 1.05s cubic-bezier(.16,.85,.25,1) forwards}
+.cinema-subtitle{font:400 clamp(1.7rem,5vw,2.7rem) 'Parisienne',cursive;color:#f2d58a;margin:20px 0 0;opacity:0;animation:cinemaText 1s 1.85s forwards}
+.cinema-bottom{font-size:.54rem;letter-spacing:.35em;text-transform:uppercase;color:#d8e2ff99;margin-top:42px;opacity:0;animation:cinemaText 1s 2.35s forwards}
+.cinema-star{position:absolute;color:#f7e5b5;opacity:0;animation:cinemaSpark 2.8s ease-in-out infinite}
+.cinema-star.s1{top:23%;left:18%;font-size:20px;animation-delay:.5s}
+.cinema-star.s2{top:31%;right:17%;font-size:13px;animation-delay:1.1s}
+.cinema-star.s3{bottom:24%;left:27%;font-size:12px;animation-delay:1.7s}
+.cinema-star.s4{bottom:28%;right:24%;font-size:18px;animation-delay:.8s}
+@keyframes cinemaOrbit{to{transform:rotate(360deg)}}
+@keyframes cinemaRule{to{width:min(300px,65vw)}}
+@keyframes cinemaText{to{opacity:1}}
+@keyframes cinemaTitle{to{opacity:1;transform:scale(1)}}
+@keyframes cinemaSpark{0%,100%{opacity:.08;transform:scale(.6)}50%{opacity:.9;transform:scale(1.25)}}
+@keyframes cinemaContent{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes cinemaCurtain{0%{opacity:1;visibility:visible;transform:scale(1)}70%{opacity:1}100%{opacity:0;visibility:hidden;transform:scale(1.04);pointer-events:none}}
+body.cinema-loading{overflow:hidden}
+body.cinema-loading main,body.cinema-loading #polaroids,body.cinema-loading #floral-frame,body.cinema-loading .glow,body.cinema-loading #particles{opacity:0}
+body.cinema-ready main,body.cinema-ready #polaroids,body.cinema-ready #floral-frame,body.cinema-ready .glow,body.cinema-ready #particles{opacity:1;transition:opacity 1.3s ease}
+.intro h1{animation:introEnter 1.5s .15s cubic-bezier(.2,.8,.2,1) both,nameGlow 4.5s 1.8s ease-in-out infinite alternate}
+@media(prefers-reduced-motion:reduce){#cinema-intro{display:none}body.cinema-loading{overflow:auto}body.cinema-loading main,body.cinema-loading #polaroids,body.cinema-loading #floral-frame,body.cinema-loading .glow,body.cinema-loading #particles{opacity:1}}
+
 </style>
 </head>
-<body>
+<body class="cinema-loading">
+<div id="cinema-intro" aria-label="A birthday surprise for Jasmine"><div class="cinema-content"><div class="cinema-kicker">a little moment, made just for you</div><div class="cinema-rule"></div><h1 class="cinema-title">Jasmine</h1><p class="cinema-subtitle">this is all for you, Jay</p><div class="cinema-bottom">made with love</div></div><span class="cinema-star s1">✧</span><span class="cinema-star s2">✦</span><span class="cinema-star s3">✧</span><span class="cinema-star s4">✦</span></div>
 <div id="polaroids" aria-label="A little memory wall">
   <button class="polaroid p-one" type="button" data-caption="The moment I asked you to be mine" data-photo="https://raw.githubusercontent.com/Sham2great/Happy-Birthday-ML-/main/ChatGPT%20Image%20Nov%2012%2C%202026%2C%2009_43_17%20PM.jpg?v=4"><span class="photo-slot"><img src="https://raw.githubusercontent.com/Sham2great/Happy-Birthday-ML-/main/ChatGPT%20Image%20Nov%2012%2C%202026%2C%2009_43_17%20PM.jpg?v=4" alt="The proposal memory"></span><span class="polaroid-caption">the moment I asked you</span></button>
   <button class="polaroid p-two" type="button" data-caption="A little portrait of you, just because" data-photo="https://raw.githubusercontent.com/Sham2great/Happy-Birthday-ML-/main/ChatGPT%20Image%20Nov%2012%2C%202026%2C%2009_43_30%20PM.jpg?v=4"><span class="photo-slot"><img src="https://raw.githubusercontent.com/Sham2great/Happy-Birthday-ML-/main/ChatGPT%20Image%20Nov%2012%2C%202026%2C%2009_43_30%20PM.jpg?v=4" alt="Jasmine in a black dress"></span><span class="polaroid-caption">my favourite person</span></button>
@@ -275,6 +305,10 @@ body:before{background-blend-mode:screen,normal}
 </main>
 <script>
 
+document.body.classList.add('cinema-loading');
+const cinemaIntro=document.getElementById('cinema-intro');
+if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.body.classList.remove('cinema-loading');document.body.classList.add('cinema-ready');if(cinemaIntro)cinemaIntro.remove();}
+else{window.setTimeout(()=>{document.body.classList.remove('cinema-loading');document.body.classList.add('cinema-ready');},3650);window.setTimeout(()=>{if(cinemaIntro)cinemaIntro.remove();},5200);}
 const birthdaySong=document.getElementById('birthdaySong');
 let soundtrackStarted=false;
 async function startSoundtrack(){
