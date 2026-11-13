@@ -36,13 +36,13 @@ h1 em{display:block;font-size:.48em;letter-spacing:.06em;font-weight:400;margin-
 .scene-heading{font:400 clamp(2.2rem,6vw,3.5rem)/1 'Cormorant Garamond',serif;margin:0 0 8px}
 .scene-caption{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:#b7c8e8;margin:0 0 55px}
 .envelope-wrap{position:relative;width:min(390px,84vw);height:255px;perspective:1200px;margin:0 auto 14px}
-.envelope{position:absolute;inset:35px 0 0;width:100%;height:220px;cursor:pointer;border:0;padding:0;background:transparent;filter:drop-shadow(0 25px 35px #0008);-webkit-tap-highlight-color:transparent}
+.envelope{position:absolute;inset:35px 0 0;width:100%;height:220px;display:block;z-index:10;cursor:pointer;border:0;padding:0;background:transparent;filter:drop-shadow(0 25px 35px #0008);-webkit-tap-highlight-color:transparent;pointer-events:auto;touch-action:manipulation}
 .env-back{position:absolute;inset:0;background:linear-gradient(145deg,#e5edff,#9aafd9);border-radius:3px}
 .env-front{position:absolute;inset:0;background:linear-gradient(135deg,#d4e1fa,#829bc9);clip-path:polygon(0 0,50% 57%,100% 0,100% 100%,0 100%);z-index:4}
 .env-side{position:absolute;inset:0;background:linear-gradient(45deg,#a9bce2,#e5edff 48%,#8ca5d2);clip-path:polygon(0 0,50% 56%,100% 0,50% 100%);z-index:3}
 .env-flap{position:absolute;inset:0 0 auto;height:57%;background:linear-gradient(160deg,#f2f6ff,#a8bce5);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .95s cubic-bezier(.2,.75,.2,1);z-index:6;backface-visibility:visible}
 .wax{position:absolute;z-index:7;left:50%;top:44%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 28%,#5477bd,#173777 72%);border:1px solid #dce7ff;color:#f5f7ff;font:1.5rem 'Cormorant Garamond',serif;box-shadow:0 4px 13px #14274d88;transition:opacity .3s,transform .4s}
-.paper{position:absolute;z-index:2;left:5%;top:12px;width:90%;height:210px;overflow:hidden;background:linear-gradient(160deg,#fffdf7,#e6e9f0);color:#172c52;text-align:left;padding:25px 27px 20px;border-radius:2px;transform:translateY(0);transition:transform 1.1s cubic-bezier(.18,.75,.25,1),height 1s ease;box-shadow:0 4px 15px #0003}
+.paper{position:absolute;z-index:2;left:5%;top:12px;width:90%;height:210px;overflow:hidden;pointer-events:none;background:linear-gradient(160deg,#fffdf7,#e6e9f0);color:#172c52;text-align:left;padding:25px 27px 20px;border-radius:2px;transform:translateY(0);transition:transform 1.1s cubic-bezier(.18,.75,.25,1),height 1s ease;box-shadow:0 4px 15px #0003}
 .paper-inner{opacity:0;transition:opacity .5s .55s}
 .paper .small-date{font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:#7182a2}
 .paper h2{font:600 2rem 'Cormorant Garamond',serif;margin:12px 0 7px}
@@ -107,11 +107,29 @@ const sky=document.getElementById('sky');
 for(let i=0;i<105;i++){const s=document.createElement('i');s.className='star';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.setProperty('--o',.2+Math.random()*.65);s.style.setProperty('--t',(2+Math.random()*5)+'s');sky.appendChild(s)}
 const intro=document.getElementById('intro'),scene=document.getElementById('scene'),begin=document.getElementById('begin');
 const wrap=document.getElementById('envelopeWrap'),envelope=document.getElementById('envelope'),fullLetter=document.getElementById('fullLetter'),tapHint=document.getElementById('tapHint');
-begin.addEventListener('click',()=>{intro.style.opacity='0';intro.style.transform='translateY(-18px)';setTimeout(()=>{intro.style.display='none';scene.classList.add('visible')},650)});
-envelope.addEventListener('click',()=>{
- if(wrap.classList.contains('open'))return;
- wrap.classList.add('open');envelope.setAttribute('aria-expanded','true');tapHint.textContent='Your letter is opening...';
- setTimeout(()=>{fullLetter.classList.add('show');tapHint.textContent='';fullLetter.scrollIntoView({behavior:'smooth',block:'center'})},900);
+function showLetterScene(){
+  if(!intro||!scene)return;
+  intro.hidden=true;
+  scene.classList.add('visible');
+  scene.style.display='flex';
+}
+function openBirthdayLetter(){
+  if(!wrap||wrap.classList.contains('open'))return;
+  wrap.classList.add('open');
+  if(envelope)envelope.setAttribute('aria-expanded','true');
+  if(tapHint)tapHint.textContent='Your letter is opening...';
+  window.setTimeout(()=>{
+    if(fullLetter)fullLetter.classList.add('show');
+    if(tapHint)tapHint.textContent='';
+    if(fullLetter)fullLetter.scrollIntoView({behavior:'smooth',block:'center'});
+  },850);
+}
+begin.addEventListener('click',showLetterScene);
+envelope.addEventListener('click',openBirthdayLetter);
+// Delegated backup keeps the controls working if the click lands on an envelope layer.
+document.addEventListener('click',event=>{
+  if(event.target.closest('#begin'))showLetterScene();
+  if(event.target.closest('#envelope'))openBirthdayLetter();
 });
 function floatStar(){if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;const e=document.createElement('span');e.className='float';e.textContent=Math.random()>.5?'✧':'♡';e.style.left=Math.random()*100+'vw';e.style.fontSize=(12+Math.random()*14)+'px';e.style.animationDuration=(7+Math.random()*6)+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),14000)}
 setInterval(floatStar,1300);
