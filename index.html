@@ -273,7 +273,8 @@ birthdaySong.addEventListener('play',()=>{musicToggle.textContent='Ⅱ';musicTog
 birthdaySong.addEventListener('pause',()=>{musicToggle.textContent='▶';musicToggle.setAttribute('aria-label','Play Baby Love');musicStatus.textContent='Paused';soundtrack.classList.remove('playing')});
 birthdaySong.addEventListener('ended',()=>{musicStatus.textContent='A little song, just for you ♡'});
 birthdaySong.addEventListener('error',()=>{musicStatus.textContent='Song file not found — check the MP3 upload'});
-\nconst particleLayer=document.getElementById('particles');
+
+const particleLayer=document.getElementById('particles');
 const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function makeParticle(){if(reduced)return;const p=document.createElement('span');p.className='particle';p.textContent=Math.random()>.55?'✧':(Math.random()>.5?'♡':'·');p.style.left=Math.random()*100+'%';p.style.fontSize=(12+Math.random()*18)+'px';p.style.setProperty('--duration',(9+Math.random()*9)+'s');p.style.setProperty('--drift',(Math.random()*100-50)+'px');particleLayer.appendChild(p);window.setTimeout(()=>p.remove(),19000)}
 if(!reduced){for(let i=0;i<6;i++)window.setTimeout(makeParticle,i*700);window.setInterval(makeParticle,1800)}
