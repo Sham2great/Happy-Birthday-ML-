@@ -171,11 +171,6 @@ body:before{background-blend-mode:screen,normal}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 @media(max-width:760px){.polaroid{animation-duration:7s,.95s}.polaroid:after{display:none}}
 
-/* Quiet soundtrack control */
-.sound-toggle{position:fixed;right:22px;top:22px;z-index:40;width:36px;height:36px;border-radius:50%;border:1px solid #f2d58a88;background:#071747b8;color:#f2d58a;display:grid;place-items:center;font-size:1rem;cursor:pointer;opacity:.72;transition:opacity .25s,transform .25s,background .25s}
-.sound-toggle:hover,.sound-toggle:focus-visible{opacity:1;transform:scale(1.08);outline:none;background:#173d91}
-.sound-toggle.is-playing{box-shadow:0 0 18px #f2d58a55;opacity:.9}
-@media(max-width:520px){.sound-toggle{top:17px;right:15px;width:32px;height:32px}}
 </style>
 </head>
 <body>
@@ -204,7 +199,6 @@ body:before{background-blend-mode:screen,normal}
     <p class="intro-copy">I wanted to give you something you could keep — something to remind you how much you mean to me.</p>
     <div class="countdown" id="countdown">Counting down to your day<strong>Loading a little magic...</strong></div>
 
-    <button class="sound-toggle" id="musicToggle" type="button" aria-label="Turn soundtrack off" title="Soundtrack: Baby Love — Orit">♫</button>
     <audio id="birthdaySong" preload="auto" loop src="https://raw.githubusercontent.com/Sham2great/Happy-Birthday-ML-/main/Babylove%20-%20Orit%20%28Lyrics%29.mp3"></audio>
     <button class="opening" id="begin" type="button">There's a letter for you <span>↗</span></button>
   </section>
@@ -255,38 +249,16 @@ body:before{background-blend-mode:screen,normal}
 <script>
 
 const birthdaySong=document.getElementById('birthdaySong');
-const musicToggle=document.getElementById('musicToggle');
 let soundtrackStarted=false;
 async function startSoundtrack(){
   if(soundtrackStarted||!birthdaySong)return;
   soundtrackStarted=true;
-  try{
-    await birthdaySong.play();
-    musicToggle.classList.add('is-playing');
-    musicToggle.textContent='♫';
-    musicToggle.setAttribute('aria-label','Turn soundtrack off');
-  }catch(error){
-    soundtrackStarted=false;
-    musicToggle.setAttribute('aria-label','Play soundtrack');
-    musicToggle.title='Tap to try playing Baby Love — Orit';
-  }
-}
-function stopSoundtrack(){
-  birthdaySong.pause();
-  soundtrackStarted=false;
-  musicToggle.classList.remove('is-playing');
-  musicToggle.textContent='♫';
-  musicToggle.setAttribute('aria-label','Turn soundtrack on');
+  try{await birthdaySong.play();}
+  catch(error){soundtrackStarted=false;}
 }
 document.addEventListener('pointerdown',startSoundtrack,{once:true,capture:true});
 document.addEventListener('keydown',startSoundtrack,{once:true,capture:true});
-musicToggle.addEventListener('click',()=>{
-  if(birthdaySong.paused){startSoundtrack();}
-  else stopSoundtrack();
-});
-birthdaySong.addEventListener('play',()=>{musicToggle.classList.add('is-playing');musicToggle.setAttribute('aria-label','Turn soundtrack off')});
-birthdaySong.addEventListener('pause',()=>{musicToggle.classList.remove('is-playing');musicToggle.setAttribute('aria-label','Turn soundtrack on')});
-birthdaySong.addEventListener('error',()=>{musicToggle.title='The song file could not be loaded';musicToggle.setAttribute('aria-label','Song unavailable')});
+birthdaySong.addEventListener('error',()=>{soundtrackStarted=false});
 
 const particleLayer=document.getElementById('particles');
 const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
