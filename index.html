@@ -119,6 +119,22 @@ footer{font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:#f1d
  .p-three,.p-four{display:block;bottom:3%}
 }
 
+/* Final cinematic touches */
+.intro{animation:introEnter 1.8s cubic-bezier(.2,.8,.2,1) both}
+.intro h1{animation:nameGlow 4.5s ease-in-out infinite alternate}
+@keyframes nameGlow{from{text-shadow:0 12px 55px #0009,0 0 0 #f2d58a00}to{text-shadow:0 12px 55px #0009,0 0 28px #f2d58a55}}
+.opening{box-shadow:0 0 0 0 #f2d58a00;animation:buttonGlow 3.2s ease-in-out infinite}
+@keyframes buttonGlow{50%{box-shadow:0 0 24px #f2d58a35}}
+.little-things{width:min(620px,100%);margin:50px auto 12px;padding:32px 20px;border-top:1px solid #f2d58a55;text-align:center}
+.little-things h3{font:400 clamp(2rem,5vw,3rem) 'Cormorant Garamond',serif;color:#f7e8bd;margin:0 0 8px}
+.little-things .hint{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:#c9d8ff;margin:0 0 25px}
+.little-list{display:grid;gap:13px;max-width:480px;margin:auto}
+.little-note{padding:17px 19px;border:1px solid #f2d58a55;background:linear-gradient(110deg,#0b246688,#163d9177);color:#fff5e8;font:italic 1.35rem/1.45 'Cormorant Garamond',serif;opacity:0;transform:translateY(20px);transition:opacity .9s,transform .9s}
+.little-note.show{opacity:1;transform:none}
+.final-moment{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:28px;background:radial-gradient(circle at center,#153b91f5,#020923 78%);text-align:center;opacity:0;visibility:hidden;transition:opacity 1.5s,visibility 1.5s}
+.final-moment.visible{opacity:1;visibility:visible}
+.final-moment p{max-width:600px;font:italic clamp(2rem,6vw,3.7rem)/1.35 'Cormorant Garamond',serif;color:#fff5e8;text-shadow:0 0 30px #f2d58a33;margin:0}
+.final-moment span{display:block;margin-top:25px;color:#f2d58a;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase}
 /* Botanical frame: flowers decorate the edges, not the open page. */
 #floral-frame{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
 #floral-frame:before,#floral-frame:after{content:"✿  ❀  ✧  ❀  ✿";position:absolute;left:0;right:0;text-align:center;color:#d9c18a;letter-spacing:clamp(12px,3vw,38px);font-size:clamp(13px,2vw,22px);text-shadow:0 0 12px #9dbfff66;opacity:.78}
@@ -167,6 +183,7 @@ body:before{background-blend-mode:screen,normal}
 @keyframes shoot{to{left:120%;top:65%;opacity:0}}
 .confetti-piece{position:fixed;z-index:26;top:-15px;width:7px;height:12px;background:#f2d58a;pointer-events:none;animation:confettiFall 3.4s ease-in forwards}
 @keyframes confettiFall{to{transform:translate(var(--side),105vh) rotate(760deg);opacity:0}}
+@media(max-width:760px){#polaroids{position:absolute;height:100svh;inset:0 auto auto 0} .p-three,.p-four{bottom:3%}}
 @media(max-width:520px){main{padding:35px 19px 50px}.topline{font-size:.5rem;letter-spacing:.2em}.topline:before,.topline:after{width:16px;margin:0 7px}.scene{min-height:590px}.scene-caption{margin-bottom:39px}.envelope-wrap{height:245px}.envelope{height:200px}.paper{padding:22px}.envelope-wrap.open .paper{transform:translateY(-152px);height:430px}.full-letter p{font-size:1.23rem}.greeting{font-size:2.7rem}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 @media(max-width:760px){.polaroid{animation-duration:7s,.95s}.polaroid:after{display:none}}
@@ -222,6 +239,15 @@ body:before{background-blend-mode:screen,normal}
       <!-- Add his next words here; the letter is intentionally easy to extend. -->
       <div class="signoff">With love <span class="signature-heart">♡</span></div>
     </article>
+    <section class="little-things" id="littleThings" aria-label="Little things worth remembering">
+      <h3>Little things I hope you never forget</h3>
+      <p class="hint">A few things, from the heart</p>
+      <div class="little-list">
+        <div class="little-note">You make me feel understood in a way I didn't know I needed.</div>
+        <div class="little-note">Even an ordinary call with you can turn into the best part of my day.</div>
+        <div class="little-note">You make me feel welcome, and that's something I'll never take for granted.</div>
+      </div>
+    </section>
     <section class="constellation" id="constellation" aria-label="Little stars with birthday messages">
       <h3>A little universe of reasons</h3>
       <p class="hint">Choose a star. Each one has something to tell you.</p>
@@ -245,6 +271,7 @@ body:before{background-blend-mode:screen,normal}
     </section>
   </section>
   <footer>made with love, for jasmine</footer>
+  <div class="final-moment" id="finalMoment" aria-hidden="true"><p>And if you ever need a reminder of how special you are, come back here.<span>Happy birthday, Jay ♡</span></p></div>
 </main>
 <script>
 
@@ -273,6 +300,9 @@ begin.addEventListener('click',showLetterScene);
 envelope.addEventListener('click',openBirthdayLetter);
 document.querySelectorAll('.star-button').forEach(btn=>btn.addEventListener('click',()=>{const out=document.getElementById('starMessage');out.textContent=btn.dataset.message;out.classList.add('visible')}));
 document.getElementById('secretButton').addEventListener('click',()=>document.getElementById('secretMessage').classList.toggle('visible'));
+const littleNotes=[...document.querySelectorAll('.little-note')];
+const littleObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){littleNotes.forEach((note,i)=>window.setTimeout(()=>note.classList.add('show'),i*650));littleObserver.disconnect()}}),{threshold:.2});
+if(littleNotes.length)littleObserver.observe(document.getElementById('littleThings'));
 // Tap a Polaroid to bring its memory into focus. Real photos can be dropped into these four slots later.
 const memoryModal=document.getElementById('memoryModal'),modalPhoto=document.getElementById('modalPhoto'),modalCaption=document.getElementById('modalCaption');
 document.querySelectorAll('.polaroid').forEach(card=>card.addEventListener('click',()=>{
@@ -288,8 +318,10 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMemory()});
 document.getElementById('celebrateButton').addEventListener('click',()=>{
   const reveal=document.getElementById('finaleReveal');
   reveal.textContent='May this year bring you everything your heart has been quietly hoping for. Happy birthday, Jay. ♡';
+  const celebrate=document.getElementById('celebrateButton');celebrate.disabled=true;celebrate.textContent='Wish made ✦';
   const star=document.createElement('span');star.className='shooting-star';document.body.appendChild(star);setTimeout(()=>star.remove(),1500);
   if(!reduced)for(let i=0;i<46;i++){const bit=document.createElement('i');bit.className='confetti-piece';bit.style.left=(Math.random()*100)+'vw';bit.style.setProperty('--side',(Math.random()*180-90)+'px');bit.style.animationDelay=(Math.random()*.65)+'s';bit.style.opacity='.9';document.body.appendChild(bit);setTimeout(()=>bit.remove(),4200)}
+  window.setTimeout(()=>{const ending=document.getElementById('finalMoment');ending.classList.add('visible');ending.setAttribute('aria-hidden','false')},2600);
 });
 const countdown=document.getElementById('countdown');
 function updateCountdown(){const target=new Date(2026,10,15,0,0,0);const diff=target-new Date();if(diff<=0){countdown.innerHTML='Today is your day<strong>Happy birthday, Jay ✦</strong>';return}const days=Math.floor(diff/86400000),hours=Math.floor(diff%86400000/3600000);countdown.innerHTML='Counting down to your day<strong>'+days+' days, '+hours+' hours to go</strong>'}
