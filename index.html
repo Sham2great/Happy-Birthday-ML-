@@ -3,36 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#17131b">
+<meta name="theme-color" content="#071747">
 <title>For Jasmine — a letter from the heart</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Parisienne&display=swap" rel="stylesheet">
 <style>
-:root{--cream:#fff6ec;--soft:#e9d9cb;--gold:#e9cda6;--wine:#783e49;--photo:url("birthday-background.jpg")}
+ :root{--cream:#f7f5ff;--soft:#d9e3ff;--gold:#f2d58a;--wine:#183a91;--photo:url("birthday-background.jpg")}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;min-height:100vh;background:#17131b;color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden}
-body:before{content:"";position:fixed;inset:-2%;z-index:-3;background-image:var(--photo),linear-gradient(135deg,#342731,#17131b 58%,#44303a);background-size:cover;background-position:center;background-repeat:no-repeat;animation:backdropDrift 28s ease-in-out infinite alternate}
-body:after{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,#100d14a1,#17101882 48%,#120e16d9);pointer-events:none}
+body{margin:0;min-height:100vh;background:#06133d;color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:-2%;z-index:-3;background-image:var(--photo),linear-gradient(135deg,#102d78,#06133d 58%,#020923);background-size:cover;background-position:center;background-repeat:no-repeat;animation:backdropDrift 28s ease-in-out infinite alternate}
+body:after{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,#020923b8,#07174780 48%,#020923e8);pointer-events:none}
 @keyframes backdropDrift{to{transform:scale(1.07) translate3d(0,-1%,0)}}
 button{font:inherit}
 #particles{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-.particle{position:absolute;bottom:-35px;color:#f4d9c1;opacity:0;animation:rise var(--duration) linear forwards;text-shadow:0 0 14px #f2c7b7}
+.particle{position:absolute;bottom:-35px;color:#f4dfaa;opacity:0;animation:rise var(--duration) linear forwards;text-shadow:0 0 14px #f2c7b7}
 @keyframes rise{8%{opacity:.65}85%{opacity:.4}100%{transform:translate3d(var(--drift),-115vh,0) rotate(200deg);opacity:0}}
-.glow{position:fixed;width:55vw;height:55vw;max-width:650px;max-height:650px;border-radius:50%;filter:blur(75px);opacity:.13;pointer-events:none;z-index:-1;background:#d49a8d;animation:glowMove 15s ease-in-out infinite alternate}
-.glow.one{top:-25%;left:-18%}.glow.two{right:-20%;bottom:-30%;background:#9e8cb9;animation-delay:-7s}
+.glow{position:fixed;width:55vw;height:55vw;max-width:650px;max-height:650px;border-radius:50%;filter:blur(75px);opacity:.13;pointer-events:none;z-index:-1;background:#477be8;animation:glowMove 15s ease-in-out infinite alternate}
+.glow.one{top:-25%;left:-18%;background:#285bd0}.glow.two{right:-20%;bottom:-30%;background:#c69c4e;animation-delay:-7s}
 @keyframes glowMove{to{transform:translate(10vw,8vh) scale(1.2)}}
 main{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 20px 60px;text-align:center}
 .topline{position:absolute;top:27px;font-size:.59rem;letter-spacing:.34em;text-transform:uppercase;color:#f5e3d4b5}
 .topline:before,.topline:after{content:"";display:inline-block;width:35px;height:1px;background:#e8cba77a;vertical-align:middle;margin:0 12px}
 .intro{max-width:760px;animation:introEnter 1.5s cubic-bezier(.2,.8,.2,1) both}
 @keyframes introEnter{from{opacity:0;transform:translateY(35px);filter:blur(7px)}to{opacity:1;transform:none;filter:blur(0)}}
-.kicker{font-size:.61rem;letter-spacing:.4em;text-transform:uppercase;color:#f0cdb7;margin:0 0 24px}
+.kicker{font-size:.61rem;letter-spacing:.4em;text-transform:uppercase;color:#f2d58a;margin:0 0 24px}
 h1{font:400 clamp(5rem,17vw,11rem)/.72 'Cormorant Garamond',serif;letter-spacing:-.06em;margin:0;text-shadow:0 12px 70px #0009}
-h1 em{display:block;font:400 clamp(1.8rem,5vw,3.3rem)/1.1 'Parisienne',cursive;letter-spacing:0;margin-top:35px;color:#f2d7c3}
+h1 em{display:block;font:400 clamp(1.8rem,5vw,3.3rem)/1.1 'Parisienne',cursive;letter-spacing:0;margin-top:35px;color:#f6df9f}
 .intro-copy{max-width:430px;margin:34px auto 30px;font:italic 1.35rem/1.6 'Cormorant Garamond',serif;color:#f2e7df}
-.opening{position:relative;overflow:hidden;border:1px solid #efd7c6a8;background:#21192270;color:#fff5eb;padding:15px 28px;letter-spacing:.16em;text-transform:uppercase;font-size:.61rem;cursor:pointer;backdrop-filter:blur(8px);transition:transform .35s,border-color .35s,background .35s}
+.opening{position:relative;overflow:hidden;border:1px solid #f2d58aa8;background:#0b2466b8;color:#fff9e9;padding:15px 28px;letter-spacing:.16em;text-transform:uppercase;font-size:.61rem;cursor:pointer;backdrop-filter:blur(8px);transition:transform .35s,border-color .35s,background .35s}
 .opening:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,#fff4e633 50%,transparent 80%);transform:translateX(-120%);transition:transform .8s}
 .opening:hover{transform:translateY(-3px);border-color:#fff1e3;background:#fff1e31c}.opening:hover:before{transform:translateX(120%)}
 .opening span{margin-left:12px}
@@ -43,11 +43,11 @@ h1 em{display:block;font:400 clamp(1.8rem,5vw,3.3rem)/1.1 'Parisienne',cursive;l
 .scene-caption{font-size:.59rem;letter-spacing:.29em;text-transform:uppercase;color:#e7cdbb;margin:0 0 53px}
 .envelope-wrap{position:relative;width:min(410px,84vw);height:270px;perspective:1300px;margin:0 auto 18px;filter:drop-shadow(0 28px 36px #0008)}
 .envelope{position:absolute;inset:35px 0 0;width:100%;height:225px;display:block;z-index:10;cursor:pointer;border:0;padding:0;background:transparent;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.env-back{position:absolute;inset:0;background:linear-gradient(145deg,#fff1df,#c5aa98);border-radius:3px}
-.env-front{position:absolute;inset:0;background:linear-gradient(135deg,#e7d2bd,#b99587);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);z-index:4}
-.env-side{position:absolute;inset:0;background:linear-gradient(45deg,#c4a895,#f8e9d9 48%,#b18e82);clip-path:polygon(0 0,50% 56%,100% 0,50% 100%);z-index:3}
-.env-flap{position:absolute;inset:0 0 auto;height:58%;background:linear-gradient(160deg,#fff7ec,#cdb6a2);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform 1.15s cubic-bezier(.2,.8,.2,1);z-index:6}
-.wax{position:absolute;z-index:7;left:50%;top:44%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 28%,#ad6870,#682e3c 72%);border:1px solid #f6dfc9;color:#fff3e8;font:1.7rem 'Cormorant Garamond',serif;box-shadow:0 4px 18px #3c172c99;transition:opacity .4s,transform .55s}
+.env-back{position:absolute;inset:0;background:linear-gradient(145deg,#3159b4,#102b76);border-radius:3px}
+.env-front{position:absolute;inset:0;background:linear-gradient(135deg,#254b9d,#0b2466);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);z-index:4}
+.env-side{position:absolute;inset:0;background:linear-gradient(45deg,#102b76,#4169c5 48%,#0a1d58);clip-path:polygon(0 0,50% 56%,100% 0,50% 100%);z-index:3}
+.env-flap{position:absolute;inset:0 0 auto;height:58%;background:linear-gradient(160deg,#5579ce,#183a91);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform 1.15s cubic-bezier(.2,.8,.2,1);z-index:6}
+.wax{position:absolute;z-index:7;left:50%;top:44%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 28%,#f7df9c,#a77b2e 72%);border:1px solid #fff0bf;color:#15285d;font:1.7rem 'Cormorant Garamond',serif;box-shadow:0 4px 18px #3c172c99;transition:opacity .4s,transform .55s}
 .paper{position:absolute;z-index:2;left:5%;top:10px;width:90%;height:215px;overflow:hidden;pointer-events:none;background:linear-gradient(160deg,#fffdf8,#eee5dc);color:#313044;text-align:left;padding:27px 29px;border-radius:2px;transform:translateY(0);transition:transform 1.35s cubic-bezier(.15,.85,.2,1),height 1.15s ease;box-shadow:0 4px 20px #0003}
 .paper-inner{opacity:0;transition:opacity .6s .65s}
 .paper .small-date{font-size:.54rem;letter-spacing:.23em;text-transform:uppercase;color:#8b776d}
@@ -67,14 +67,35 @@ h1 em{display:block;font:400 clamp(1.8rem,5vw,3.3rem)/1.1 'Parisienne',cursive;l
 .full-letter.show .letter-top{opacity:1;transform:none}
 .letter-top:before,.letter-top:after{content:"";height:1px;background:#e9cda66e;flex:1}
 .letter-top span{font-size:.57rem;letter-spacing:.27em;text-transform:uppercase;color:#f0d4bf;white-space:nowrap}
-.greeting{font:400 3rem 'Parisienne',cursive;margin:0 0 23px;color:#f6dfce}
+.greeting{font:400 3rem 'Parisienne',cursive;margin:0 0 23px;color:#f6df9f}
 .full-letter p{font:400 1.38rem/1.78 'Cormorant Garamond',serif;color:#fff5ed;margin:0 0 19px;opacity:0;transform:translateY(22px);filter:blur(3px);transition:opacity .9s,transform .9s,filter .9s}
 .full-letter.show p.revealed{opacity:1;transform:none;filter:blur(0)}
-.full-letter .signoff{font:400 2rem 'Parisienne',cursive;color:#f0d0b5;margin-top:30px;opacity:0;transform:translateY(15px);transition:all .9s}
+.full-letter .signoff{font:400 2rem 'Parisienne',cursive;color:#f2d58a;margin-top:30px;opacity:0;transform:translateY(15px);transition:all .9s}
 .full-letter.show .signoff.revealed{opacity:1;transform:none}
 .signature-heart{color:#f1c5bd;display:inline-block;animation:heartbeat 1.8s ease-in-out infinite}
 @keyframes heartbeat{0%,100%{transform:scale(1)}12%{transform:scale(1.22)}24%{transform:scale(1)}36%{transform:scale(1.14)}}
 footer{font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:#f1dfd18a;margin-top:55px}
+
+/* The royal-blue night sky and its little constellations */
+body:before{background-blend-mode:screen,normal}
+.scene-heading{color:#f8f4ff}
+.scene-caption{color:#f2d58a}
+.constellation{width:min(650px,100%);margin:45px auto 0;padding:30px 20px 24px;border-top:1px solid #f2d58a55;text-align:center}
+.constellation h3{font:400 clamp(2rem,5vw,3rem) 'Cormorant Garamond',serif;margin:0 0 8px;color:#f7e8bd}
+.constellation .hint{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:#c9d8ff;margin:0 0 24px}
+.star-row{display:flex;justify-content:center;gap:clamp(18px,6vw,48px);flex-wrap:wrap}
+.star-button{width:72px;height:72px;border:1px solid #f2d58a75;border-radius:50%;background:radial-gradient(circle,#244ca5aa,#07174755 70%);color:#f8e8b5;font-size:2rem;cursor:pointer;box-shadow:0 0 25px #4278df44;transition:transform .3s,box-shadow .3s}
+.star-button:hover,.star-button:focus-visible{transform:translateY(-6px) scale(1.08);box-shadow:0 0 32px #f2d58a77;outline:none}
+.star-message{min-height:56px;margin:22px auto 0;max-width:470px;color:#f7f2e9;font:italic 1.3rem/1.5 'Cormorant Garamond',serif;opacity:0;transition:opacity .35s}
+.star-message.visible{opacity:1}
+.secret-wrap{margin:35px auto 0}
+.secret-button{border:0;background:transparent;color:#f2d58a;font-size:1.8rem;cursor:pointer;filter:drop-shadow(0 0 12px #f2d58a77);animation:secretPulse 2.4s ease-in-out infinite}
+@keyframes secretPulse{50%{transform:scale(1.18);filter:drop-shadow(0 0 20px #f2d58aaa)}}
+.secret-message{display:none;max-width:470px;margin:16px auto 0;padding:18px 22px;border:1px solid #f2d58a66;background:#071747aa;color:#fff4d4;font:italic 1.35rem/1.5 'Cormorant Garamond',serif}
+.secret-message.visible{display:block;animation:sceneEnter .7s both}
+.countdown{margin:26px auto 0;color:#e3eaff;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}
+.countdown strong{display:block;margin-top:8px;color:#f2d58a;font:400 1.4rem 'Cormorant Garamond',serif;letter-spacing:.04em}
+
 @media(max-width:520px){main{padding:35px 19px 50px}.topline{font-size:.5rem;letter-spacing:.2em}.topline:before,.topline:after{width:16px;margin:0 7px}.scene{min-height:590px}.scene-caption{margin-bottom:39px}.envelope-wrap{height:245px}.envelope{height:200px}.paper{padding:22px}.envelope-wrap.open .paper{transform:translateY(-152px);height:430px}.full-letter p{font-size:1.23rem}.greeting{font-size:2.7rem}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
@@ -87,6 +108,7 @@ footer{font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:#f1d
     <p class="kicker">A moment made just for you</p>
     <h1>Jasmine<em>if only words could show you...</em></h1>
     <p class="intro-copy">I wanted to give you something you could keep — something to remind you how much you mean to me.</p>
+    <div class="countdown" id="countdown">Counting down to your day<strong>Loading a little magic...</strong></div>
     <button class="opening" id="begin" type="button">There's a letter for you <span>↗</span></button>
   </section>
   <section class="scene" id="scene" aria-label="A birthday letter for Jasmine">
@@ -109,6 +131,20 @@ footer{font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:#f1d
       <!-- Add his next words here; the letter is intentionally easy to extend. -->
       <div class="signoff">With love <span class="signature-heart">♡</span></div>
     </article>
+    <section class="constellation" id="constellation" aria-label="Little stars with birthday messages">
+      <h3>A little universe of reasons</h3>
+      <p class="hint">Choose a star. Each one has something to tell you.</p>
+      <div class="star-row">
+        <button class="star-button" type="button" data-message="You make ordinary moments feel like something worth remembering.">✦</button>
+        <button class="star-button" type="button" data-message="The way you make someone feel seen and understood is a rare kind of beautiful.">✧</button>
+        <button class="star-button" type="button" data-message="I hope life gives you back all the warmth and happiness you bring into it.">✦</button>
+      </div>
+      <p class="star-message" id="starMessage" aria-live="polite"></p>
+      <div class="secret-wrap">
+        <button class="secret-button" id="secretButton" type="button" aria-label="Reveal the hidden birthday wish">★</button>
+        <div class="secret-message" id="secretMessage">If I could wish one thing for you, it would be that you always see even a little of the beauty that everyone who cares about you sees in you. Happy birthday, Jay. ♡</div>
+      </div>
+    </section>
   </section>
   <footer>made with love, for jasmine</footer>
 </main>
@@ -125,6 +161,11 @@ function openBirthdayLetter(){if(!wrap||wrap.classList.contains('open'))return;w
 begin.addEventListener('click',showLetterScene);
 envelope.addEventListener('click',openBirthdayLetter);
 document.addEventListener('click',e=>{if(e.target.closest('#begin'))showLetterScene();if(e.target.closest('#envelope'))openBirthdayLetter()});
+document.querySelectorAll('.star-button').forEach(btn=>btn.addEventListener('click',()=>{const out=document.getElementById('starMessage');out.textContent=btn.dataset.message;out.classList.add('visible')}));
+document.getElementById('secretButton').addEventListener('click',()=>document.getElementById('secretMessage').classList.toggle('visible'));
+const countdown=document.getElementById('countdown');
+function updateCountdown(){const target=new Date(2026,10,15,0,0,0);const diff=target-new Date();if(diff<=0){countdown.innerHTML='Today is your day<strong>Happy birthday, Jay ✦</strong>';return}const days=Math.floor(diff/86400000),hours=Math.floor(diff%86400000/3600000);countdown.innerHTML='Counting down to your day<strong>'+days+' days, '+hours+' hours to go</strong>'}
+updateCountdown();window.setInterval(updateCountdown,60000);
 </script>
 </body>
 </html>
