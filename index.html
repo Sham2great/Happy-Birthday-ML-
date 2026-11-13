@@ -13,17 +13,17 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;min-height:100vh;background:#06133d;color:var(--cream);font-family:'DM Sans',sans-serif;overflow-x:hidden}
-body:before{content:"";position:fixed;inset:-2%;z-index:-3;background-image:var(--photo),linear-gradient(135deg,#102d78,#06133d 58%,#020923);background-size:cover;background-position:center;background-repeat:no-repeat;animation:backdropDrift 28s ease-in-out infinite alternate}
+body:before{content:"";position:fixed;inset:-2%;z-index:-3;background-image:linear-gradient(135deg,rgba(13,43,121,.62),rgba(3,13,48,.82)),var(--photo),linear-gradient(135deg,#1642a3,#06133d 60%,#020923);background-size:cover;background-position:center;background-repeat:no-repeat;animation:none}
 body:after{content:"";position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,#020923b8,#07174780 48%,#020923e8);pointer-events:none}
-@keyframes backdropDrift{to{transform:scale(1.07) translate3d(0,-1%,0)}}
+
 button{font:inherit}
-#particles{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-.particle{position:absolute;bottom:-35px;color:#f4dfaa;opacity:0;animation:rise var(--duration) linear forwards;text-shadow:0 0 14px #f2c7b7}
+#particles{position:fixed;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+.particle{position:absolute;bottom:-35px;color:#f4dfaa;opacity:0;animation:rise var(--duration) linear forwards}
 @keyframes rise{8%{opacity:.65}85%{opacity:.4}100%{transform:translate3d(var(--drift),-115vh,0) rotate(200deg);opacity:0}}
-.glow{position:fixed;width:55vw;height:55vw;max-width:650px;max-height:650px;border-radius:50%;filter:blur(75px);opacity:.13;pointer-events:none;z-index:-1;background:#477be8;animation:glowMove 15s ease-in-out infinite alternate}
-.glow.one{top:-25%;left:-18%;background:#285bd0}.glow.two{right:-20%;bottom:-30%;background:#c69c4e;animation-delay:-7s}
-@keyframes glowMove{to{transform:translate(10vw,8vh) scale(1.2)}}
-main{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 20px 60px;text-align:center}
+.glow{position:fixed;width:48vw;height:48vw;max-width:560px;max-height:560px;border-radius:50%;filter:none;opacity:.22;pointer-events:none;z-index:-1;background:radial-gradient(circle,#285bd0 0%,transparent 70%);animation:none}
+.glow.one{top:-25%;left:-18%}.glow.two{right:-20%;bottom:-30%;background:radial-gradient(circle,#a67c31 0%,transparent 70%)}
+
+main{position:relative;z-index:2;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 20px 60px;text-align:center}
 .topline{position:absolute;top:27px;font-size:.59rem;letter-spacing:.34em;text-transform:uppercase;color:#f5e3d4b5}
 .topline:before,.topline:after{content:"";display:inline-block;width:35px;height:1px;background:#e8cba77a;vertical-align:middle;margin:0 12px}
 .intro{max-width:760px;animation:introEnter 1.5s cubic-bezier(.2,.8,.2,1) both}
@@ -68,7 +68,7 @@ h1 em{display:block;font:400 clamp(1.8rem,5vw,3.3rem)/1.1 'Parisienne',cursive;l
 .letter-top:before,.letter-top:after{content:"";height:1px;background:#e9cda66e;flex:1}
 .letter-top span{font-size:.57rem;letter-spacing:.27em;text-transform:uppercase;color:#f0d4bf;white-space:nowrap}
 .greeting{font:400 3rem 'Parisienne',cursive;margin:0 0 23px;color:#f6df9f}
-.full-letter p{font:400 1.38rem/1.78 'Cormorant Garamond',serif;color:#fff5ed;margin:0 0 19px;opacity:0;transform:translateY(22px);filter:blur(3px);transition:opacity .9s,transform .9s,filter .9s}
+.full-letter p{font:400 1.38rem/1.78 'Cormorant Garamond',serif;color:#fff5ed;margin:0 0 19px;opacity:0;transform:translateY(22px);filter:blur(3px);transition:opacity 1.45s ease,transform 1.45s ease,filter 1.45s ease}
 .full-letter.show p.revealed{opacity:1;transform:none;filter:blur(0)}
 .full-letter .signoff{font:400 2rem 'Parisienne',cursive;color:#f2d58a;margin-top:30px;opacity:0;transform:translateY(15px);transition:all .9s}
 .full-letter.show .signoff.revealed{opacity:1;transform:none}
@@ -76,6 +76,18 @@ h1 em{display:block;font:400 clamp(1.8rem,5vw,3.3rem)/1.1 'Parisienne',cursive;l
 @keyframes heartbeat{0%,100%{transform:scale(1)}12%{transform:scale(1.22)}24%{transform:scale(1)}36%{transform:scale(1.14)}}
 footer{font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:#f1dfd18a;margin-top:55px}
 
+/* Floating Polaroid photo placeholders */
+#polaroids{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.polaroid{position:absolute;width:clamp(112px,13vw,174px);padding:9px 9px 13px;background:#f7f3e9;color:#27345b;box-shadow:0 12px 35px #0006;border:1px solid #fff9;will-change:translate;backface-visibility:hidden;animation:polaroidBob 7s ease-in-out infinite}
+.photo-slot{height:clamp(105px,12vw,150px);display:grid;place-items:center;background:linear-gradient(145deg,#163c91,#0a1e56);border:1px solid #d9d5c9;color:#f4d58d;font-size:2rem}
+.polaroid-caption{padding-top:9px;font:italic .85rem 'Cormorant Garamond',serif;text-align:center;white-space:nowrap}
+.p-one{top:17%;left:3.5%;transform:rotate(-13deg);animation-delay:-1s}
+.p-two{top:13%;right:4%;transform:rotate(11deg);animation-delay:-3.5s}
+.p-three{bottom:12%;left:7%;transform:rotate(8deg);animation-delay:-5s}
+.p-four{bottom:10%;right:6%;transform:rotate(-10deg);animation-delay:-2s}
+@keyframes polaroidBob{0%,100%{translate:0 0}50%{translate:0 -9px}}
+@media(max-width:760px){.polaroid{width:92px;padding:6px 6px 9px}.photo-slot{height:82px}.polaroid-caption{font-size:.68rem}.p-one{top:12%;left:-19px}.p-two{top:12%;right:-17px}.p-three{bottom:8%;left:-20px}.p-four{bottom:8%;right:-18px}}
+@media(max-width:420px){.p-three,.p-four{display:none}.polaroid{opacity:.82}}
 /* The royal-blue night sky and its little constellations */
 body:before{background-blend-mode:screen,normal}
 .scene-heading{color:#f8f4ff}
@@ -101,6 +113,12 @@ body:before{background-blend-mode:screen,normal}
 </style>
 </head>
 <body>
+<div id="polaroids" aria-hidden="true">
+  <div class="polaroid p-one"><div class="photo-slot"><span>✧</span></div><div class="polaroid-caption">a favourite moment</div></div>
+  <div class="polaroid p-two"><div class="photo-slot"><span>♡</span></div><div class="polaroid-caption">one to remember</div></div>
+  <div class="polaroid p-three"><div class="photo-slot"><span>✦</span></div><div class="polaroid-caption">little memories</div></div>
+  <div class="polaroid p-four"><div class="photo-slot"><span>✧</span></div><div class="polaroid-caption">just because</div></div>
+</div>
 <div id="particles" aria-hidden="true"></div><div class="glow one"></div><div class="glow two"></div>
 <main>
   <div class="topline">a little something, just for you</div>
@@ -152,15 +170,14 @@ body:before{background-blend-mode:screen,normal}
 const particleLayer=document.getElementById('particles');
 const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function makeParticle(){if(reduced)return;const p=document.createElement('span');p.className='particle';p.textContent=Math.random()>.55?'✧':(Math.random()>.5?'♡':'·');p.style.left=Math.random()*100+'%';p.style.fontSize=(12+Math.random()*18)+'px';p.style.setProperty('--duration',(9+Math.random()*9)+'s');p.style.setProperty('--drift',(Math.random()*100-50)+'px');particleLayer.appendChild(p);window.setTimeout(()=>p.remove(),19000)}
-if(!reduced){for(let i=0;i<18;i++)window.setTimeout(makeParticle,i*280);window.setInterval(makeParticle,850)}
+if(!reduced){for(let i=0;i<6;i++)window.setTimeout(makeParticle,i*700);window.setInterval(makeParticle,1800)}
 const intro=document.getElementById('intro'),scene=document.getElementById('scene'),begin=document.getElementById('begin');
 const wrap=document.getElementById('envelopeWrap'),envelope=document.getElementById('envelope'),fullLetter=document.getElementById('fullLetter'),tapHint=document.getElementById('tapHint');
 function showLetterScene(){if(!intro||!scene)return;intro.classList.add('leaving');intro.hidden=true;scene.classList.add('visible');scene.style.display='flex';window.scrollTo({top:0,behavior:'smooth'})}
-function revealParagraphs(){const pieces=[...fullLetter.querySelectorAll('p'),fullLetter.querySelector('.signoff')];pieces.forEach((el,i)=>window.setTimeout(()=>el.classList.add('revealed'),i*850))}
+function revealParagraphs(){const pieces=[...fullLetter.querySelectorAll('p'),fullLetter.querySelector('.signoff')];pieces.forEach((el,i)=>window.setTimeout(()=>el.classList.add('revealed'),i*1900))}
 function openBirthdayLetter(){if(!wrap||wrap.classList.contains('open'))return;wrap.classList.add('open');envelope.setAttribute('aria-expanded','true');tapHint.textContent='A little patience...';window.setTimeout(()=>{fullLetter.classList.add('show');tapHint.textContent='';revealParagraphs();window.setTimeout(()=>fullLetter.scrollIntoView({behavior:'smooth',block:'start'}),350)},1050)}
 begin.addEventListener('click',showLetterScene);
 envelope.addEventListener('click',openBirthdayLetter);
-document.addEventListener('click',e=>{if(e.target.closest('#begin'))showLetterScene();if(e.target.closest('#envelope'))openBirthdayLetter()});
 document.querySelectorAll('.star-button').forEach(btn=>btn.addEventListener('click',()=>{const out=document.getElementById('starMessage');out.textContent=btn.dataset.message;out.classList.add('visible')}));
 document.getElementById('secretButton').addEventListener('click',()=>document.getElementById('secretMessage').classList.toggle('visible'));
 const countdown=document.getElementById('countdown');
