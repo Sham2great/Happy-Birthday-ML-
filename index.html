@@ -318,7 +318,7 @@ body:after{
     <p class="intro-copy">I wanted to give you something you could keep — something to remind you how much you mean to me.</p>
     <div class="countdown" id="countdown">Counting down to your day<strong>Loading a little magic...</strong></div>
 
-    <audio id="birthdaySong" preload="auto" loop src="https://raw.githubusercontent.com/Sham2great/Happy-Birthday-ML-/main/Babylove%20-%20Orit%20%28Lyrics%29.mp3"></audio>
+    <audio id="birthdaySong" preload="auto" playsinline webkit-playsinline loop src="https://raw.githubusercontent.com/Sham2great/Happy-Birthday-ML-/main/Babylove%20-%20Orit%20%28Lyrics%29.mp3"></audio>
     <button class="opening" id="begin" type="button">There's a letter for you <span>↗</span></button>
   </section>
   <section class="scene" id="scene" aria-label="A birthday letter for Jasmine">
@@ -385,15 +385,26 @@ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){document.body.
 else{window.setTimeout(()=>{document.body.classList.remove('cinema-loading');document.body.classList.add('cinema-ready');},6650);window.setTimeout(()=>{if(cinemaIntro)cinemaIntro.remove();},8250);}
 const birthdaySong=document.getElementById('birthdaySong');
 let soundtrackStarted=false;
+let soundtrackAttempt=false;
 async function startSoundtrack(){
-  if(soundtrackStarted||!birthdaySong)return;
-  soundtrackStarted=true;
-  try{await birthdaySong.play();}
-  catch(error){soundtrackStarted=false;}
+  if(!birthdaySong||soundtrackStarted||soundtrackAttempt)return;
+  soundtrackAttempt=true;
+  try{
+    const playback=birthdaySong.play();
+    if(playback&&typeof playback.then==='function')await playback;
+    soundtrackStarted=true;
+  }catch(error){
+    soundtrackStarted=false;
+  }finally{
+    soundtrackAttempt=false;
+  }
 }
-document.addEventListener('pointerdown',startSoundtrack,{once:true,capture:true});
-document.addEventListener('keydown',startSoundtrack,{once:true,capture:true});
-birthdaySong.addEventListener('error',()=>{soundtrackStarted=false});
+birthdaySong.addEventListener('playing',()=>{soundtrackStarted=true});
+birthdaySong.addEventListener('pause',()=>{if(!birthdaySong.ended)soundtrackStarted=false});
+birthdaySong.addEventListener('error',()=>{soundtrackStarted=false;soundtrackAttempt=false});
+// Keep trying on later user gestures if a mobile browser rejects the first attempt.
+document.addEventListener('pointerdown',startSoundtrack,{capture:true});
+document.addEventListener('keydown',startSoundtrack,{capture:true});
 
 const particleLayer=document.getElementById('particles');
 const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -404,7 +415,7 @@ const wrap=document.getElementById('envelopeWrap'),envelope=document.getElementB
 function showLetterScene(){if(!intro||!scene)return;intro.classList.add('leaving');intro.hidden=true;scene.classList.add('visible');scene.style.display='flex';window.scrollTo({top:0,behavior:'smooth'})}
 function revealParagraphs(){const pieces=[...fullLetter.querySelectorAll('p'),fullLetter.querySelector('.signoff')];pieces.forEach((el,i)=>window.setTimeout(()=>el.classList.add('revealed'),i*1900))}
 function openBirthdayLetter(){if(!wrap||wrap.classList.contains('open'))return;wrap.classList.add('open');envelope.setAttribute('aria-expanded','true');tapHint.textContent='A little patience...';window.setTimeout(()=>{fullLetter.classList.add('show');tapHint.textContent='';revealParagraphs();window.setTimeout(()=>fullLetter.scrollIntoView({behavior:'smooth',block:'start'}),350)},1050)}
-begin.addEventListener('click',showLetterScene);
+begin.addEventListener('click',()=>{startSoundtrack();showLetterScene()});
 envelope.addEventListener('click',openBirthdayLetter);
 document.querySelectorAll('.star-button').forEach(btn=>btn.addEventListener('click',()=>{const out=document.getElementById('starMessage');out.textContent=btn.dataset.message;out.classList.add('visible')}));
 document.getElementById('secretButton').addEventListener('click',()=>document.getElementById('secretMessage').classList.toggle('visible'));
