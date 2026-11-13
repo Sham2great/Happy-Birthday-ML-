@@ -170,6 +170,15 @@ body:before{background-blend-mode:screen,normal}
 @media(max-width:520px){main{padding:35px 19px 50px}.topline{font-size:.5rem;letter-spacing:.2em}.topline:before,.topline:after{width:16px;margin:0 7px}.scene{min-height:590px}.scene-caption{margin-bottom:39px}.envelope-wrap{height:245px}.envelope{height:200px}.paper{padding:22px}.envelope-wrap.open .paper{transform:translateY(-152px);height:430px}.full-letter p{font-size:1.23rem}.greeting{font-size:2.7rem}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 @media(max-width:760px){.polaroid{animation-duration:7s,.95s}.polaroid:after{display:none}}
+
+/* Personal soundtrack */
+.soundtrack{width:min(360px,88vw);margin:24px auto 0;padding:13px 16px;border:1px solid #f2d58a77;background:linear-gradient(135deg,#0a205dcc,#102e78cc);box-shadow:0 12px 35px #0004;display:flex;align-items:center;gap:13px;text-align:left;backdrop-filter:blur(7px)}
+.music-disc{width:42px;height:42px;flex:0 0 42px;border-radius:50%;border:1px solid #f2d58a99;display:grid;place-items:center;color:#f2d58a;background:radial-gradient(circle,#3159a8,#071747 70%);font-size:1.1rem}
+.soundtrack.playing .music-disc{animation:discSpin 5s linear infinite}
+@keyframes discSpin{to{transform:rotate(360deg)}}
+.music-meta{min-width:0;flex:1}.music-label{display:block;color:#f2d58a;font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;margin-bottom:4px}.music-title{display:block;color:#fff7e9;font:italic 1.1rem 'Cormorant Garamond',serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-toggle{width:35px;height:35px;flex:0 0 35px;border-radius:50%;border:1px solid #f2d58a99;background:#f2d58a;color:#10265d;cursor:pointer;font-size:.9rem;display:grid;place-items:center}.music-toggle:hover{transform:scale(1.07)}
+.music-status{display:block;color:#d8e3ff9c;font-size:.48rem;letter-spacing:.12em;margin-top:3px}
 </style>
 </head>
 <body>
@@ -197,6 +206,13 @@ body:before{background-blend-mode:screen,normal}
     <h1>Jasmine<em>if only words could show you...</em></h1>
     <p class="intro-copy">I wanted to give you something you could keep — something to remind you how much you mean to me.</p>
     <div class="countdown" id="countdown">Counting down to your day<strong>Loading a little magic...</strong></div>
+
+    <div class="soundtrack" id="soundtrack" aria-label="Birthday soundtrack">
+      <span class="music-disc" aria-hidden="true">♫</span>
+      <span class="music-meta"><span class="music-label">A song for you</span><span class="music-title">Baby Love — Orit</span><span class="music-status" id="musicStatus">Press play when you're ready</span></span>
+      <button class="music-toggle" id="musicToggle" type="button" aria-label="Play Baby Love">▶</button>
+      <audio id="birthdaySong" preload="metadata" src="https://raw.githubusercontent.com/Sham2great/Happy-Birthday-ML-/main/Babylove%20-%20Orit%20%28Lyrics%29.mp3"></audio>
+    </div>
     <button class="opening" id="begin" type="button">There's a letter for you <span>↗</span></button>
   </section>
   <section class="scene" id="scene" aria-label="A birthday letter for Jasmine">
@@ -244,7 +260,20 @@ body:before{background-blend-mode:screen,normal}
   <footer>made with love, for jasmine</footer>
 </main>
 <script>
-const particleLayer=document.getElementById('particles');
+
+const birthdaySong=document.getElementById('birthdaySong');
+const musicToggle=document.getElementById('musicToggle');
+const soundtrack=document.getElementById('soundtrack');
+const musicStatus=document.getElementById('musicStatus');
+musicToggle.addEventListener('click',async()=>{
+  if(birthdaySong.paused){try{await birthdaySong.play();}catch(error){musicStatus.textContent='Could not load the song — check the MP3 file';return;}}
+  else birthdaySong.pause();
+});
+birthdaySong.addEventListener('play',()=>{musicToggle.textContent='Ⅱ';musicToggle.setAttribute('aria-label','Pause Baby Love');musicStatus.textContent='Now playing for you ♡';soundtrack.classList.add('playing')});
+birthdaySong.addEventListener('pause',()=>{musicToggle.textContent='▶';musicToggle.setAttribute('aria-label','Play Baby Love');musicStatus.textContent='Paused';soundtrack.classList.remove('playing')});
+birthdaySong.addEventListener('ended',()=>{musicStatus.textContent='A little song, just for you ♡'});
+birthdaySong.addEventListener('error',()=>{musicStatus.textContent='Song file not found — check the MP3 upload'});
+\nconst particleLayer=document.getElementById('particles');
 const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function makeParticle(){if(reduced)return;const p=document.createElement('span');p.className='particle';p.textContent=Math.random()>.55?'✧':(Math.random()>.5?'♡':'·');p.style.left=Math.random()*100+'%';p.style.fontSize=(12+Math.random()*18)+'px';p.style.setProperty('--duration',(9+Math.random()*9)+'s');p.style.setProperty('--drift',(Math.random()*100-50)+'px');particleLayer.appendChild(p);window.setTimeout(()=>p.remove(),19000)}
 if(!reduced){for(let i=0;i<6;i++)window.setTimeout(makeParticle,i*700);window.setInterval(makeParticle,1800)}
